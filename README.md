@@ -1,6 +1,6 @@
 
 # CraftUnhook
-Unhooking NTDLL Without Reading It From Disk
+Unhooking NTDLL Without Reading It From Disk.
 
 ## Explanation
 CraftUnhook works by crafting a clean syscall stub for the desired native function without reading a new copy of NTDLL, By [Resolving System Call Service Numbers Using The Exception Directory](https://www.mdsec.co.uk/2022/04/resolving-system-service-numbers-using-the-exception-directory/) and overwriting the hooked stub with our new clean stub, This makes reading an NTDLL copy obsolete and less preferrable.
