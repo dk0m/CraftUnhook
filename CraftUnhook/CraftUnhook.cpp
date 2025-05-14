@@ -1,5 +1,8 @@
-#include <iostream>
 #include "./src/unhook.h"
+#include "./src/hash/hash.h"
+
+#include <iostream>
+#include<winternl.h>
 
 int main()
 {
@@ -8,20 +11,41 @@ int main()
     else
         printf("[-] Failed To Initialize CraftUnhook.\n");
 
-    // assuming that ZwWriteVirtualMemory has been hooked/tampered with.
-    // if you wanna check if the function you're unhooking is actually hooked, use craftunhook::isHooked function.
-
-    printf("[*] Press to Unhook [ZwWriteVirtualMemory].\n");
-
+    printf("[*] Press any Key to Proceed.\n");
+    
     getchar();
 
-    // restores the original ZwWriteVirtualMemory without using a fresh NTDLL copy.
-    if (craftunhook::unhook("ZwWriteVirtualMemory"))
-        printf("[+] Unhooked Successfully.\n");
-    else
-        printf("[-] Failed to Unhook.\n");
+    if (craftunhook::isHookedByHash(hashes::ZwQueryInformationProcess))
+        printf("[!] ZwQueryInformationProcess is Hooked!\n");
 
-    printf("[*] Press any Key to Exit.\n");
+    // if you don't care about the NTSTATUS return, you can use the CLEAN_CALL macro.
+    // this will unhook the function (if its hooked), proceed with the users call and then restore it (if it was hooked) to its original state.
 
-    getchar();
+    PROCESS_BASIC_INFORMATION pbi{ 0 };
+    CLEAN_CALL(
+        hashes::ZwQueryInformationProcess,
+        NtQueryInformationProcess(
+            GetCurrentProcess(),
+            ProcessBasicInformation,
+            &pbi,
+            sizeof(pbi),
+            NULL
+        )
+    );
+
+    if (!pbi.PebBaseAddress) {
+        printf("[-] Failed to Get Process PEB.\n");
+        return -1;
+    }
+
+    printf("[PEB] Address: 0x%p\n", pbi.PebBaseAddress);
+
+    if (pbi.PebBaseAddress->BeingDebugged) {
+        printf("[!] Process is Being Debugged!\n");
+    }
+    else {
+        printf("[!] Process isn't Being Debugged!\n");
+    }
+
+    system("pause");
 }

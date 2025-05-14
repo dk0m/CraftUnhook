@@ -24,12 +24,18 @@
     <ClCompile Include="src\unhook.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\hash\hash.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\pe\Pe.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\unhook.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\hash\hash.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
