@@ -6,7 +6,9 @@ Unhooking NTDLL Without Reading It From Disk.
 CraftUnhook works by crafting a clean syscall stub for the desired native function without reading a new copy of NTDLL, By [Resolving System Call Service Numbers Using The Exception Directory](https://www.mdsec.co.uk/2022/04/resolving-system-service-numbers-using-the-exception-directory/) and overwriting the hooked stub with our new clean stub, This makes reading an NTDLL copy obsolete and less preferrable.
 
 ## Why Reading NTDLL From Disk Is Useless Now
-Reading NTDLL allowed developers to fetch a clean syscall stub of the desired function, but now since we can fetch the service call service number (SSN) with the Exception Directory of NTDLL, craft a stub and overwrite the hooked stub with it, We really don't have any reason to read NTDLL from disk, it's also very suspicious behaviour for a process and is monitored by AVs/EDRs.
+Reading NTDLL allowed developers to fetch a clean syscall stub of 
+
+the desired function, but now since we can fetch the service call service number (SSN) with the Exception Directory of NTDLL, craft a stub and overwrite the hooked stub with it, We really don't have any reason to read NTDLL from disk, it's also very suspicious behaviour for a process and is monitored by AVs/EDRs.
 
 ## Usage
 Checking if a function is hooked:
@@ -33,10 +35,8 @@ CLEAN_CALL(
 );
 ```
 
-
 ## Showcase
-https://files.catbox.moe/tcoyky.mp4
+https://github.com/user-attachments/assets/9bda340a-6eaa-4886-a9a2-036f994a5a7a
 
 ## Credits
-
 [MDSec](https://www.mdsec.co.uk/) - [Resolving System Call Service Numbers Using The Exception Directory](https://www.mdsec.co.uk/2022/04/resolving-system-service-numbers-using-the-exception-directory/), very great article to read that gives you a whole new array of ideas for syscall shenanigans.
