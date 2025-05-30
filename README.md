@@ -38,5 +38,8 @@ CLEAN_CALL(
 ## Showcase
 https://github.com/user-attachments/assets/9bda340a-6eaa-4886-a9a2-036f994a5a7a
 
+## Todo
+- Add x86 support
+
 ## Credits
 [MDSec](https://www.mdsec.co.uk/) - [Resolving System Call Service Numbers Using The Exception Directory](https://www.mdsec.co.uk/2022/04/resolving-system-service-numbers-using-the-exception-directory/), very great article to read that gives you a whole new array of ideas for syscall shenanigans.
